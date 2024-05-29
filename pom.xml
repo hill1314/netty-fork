@@ -751,7 +751,7 @@
     <module>testsuite-native-image-client-runtime-init</module>
     <module>transport-blockhound-tests</module>
     <module>microbench</module>
-    <module>bom</module>
+    <module>netty-bom</module>
   </modules>
 
   <dependencyManagement>
