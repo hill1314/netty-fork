@@ -707,50 +707,50 @@
 
   <modules>
     <module>all</module>
-    <module>dev-tools</module>
-    <module>common</module>
-    <module>buffer</module>
-    <module>codec</module>
-    <module>codec-dns</module>
-    <module>codec-haproxy</module>
-    <module>codec-http</module>
-    <module>codec-http2</module>
-    <module>codec-memcache</module>
-    <module>codec-mqtt</module>
-    <module>codec-redis</module>
-    <module>codec-smtp</module>
-    <module>codec-socks</module>
-    <module>codec-stomp</module>
-    <module>codec-xml</module>
-    <module>resolver</module>
-    <module>resolver-dns</module>
-    <module>resolver-dns-classes-macos</module>
-    <module>resolver-dns-native-macos</module>
-    <module>transport</module>
+    <module>netty-dev-tools</module>
+    <module>netty-common</module>
+    <module>netty-buffer</module>
+    <module>netty-codec</module>
+    <module>netty-codec-dns</module>
+    <module>netty-codec-haproxy</module>
+    <module>netty-codec-http</module>
+    <module>netty-codec-http2</module>
+    <module>netty-codec-memcache</module>
+    <module>netty-codec-mqtt</module>
+    <module>netty-codec-redis</module>
+    <module>netty-codec-smtp</module>
+    <module>netty-codec-socks</module>
+    <module>netty-codec-stomp</module>
+    <module>netty-codec-xml</module>
+    <module>netty-resolver</module>
+    <module>netty-resolver-dns</module>
+    <module>netty-resolver-dns-classes-macos</module>
+    <module>netty-resolver-dns-native-macos</module>
+    <module>netty-transport</module>
     <module>transport-native-unix-common-tests</module>
     <module>transport-native-unix-common</module>
-    <module>transport-classes-epoll</module>
-    <module>transport-native-epoll</module>
+    <module>netty-transport-classes-epoll</module>
+    <module>netty-transport-native-epoll</module>
     <module>transport-classes-kqueue</module>
     <module>transport-native-kqueue</module>
-    <module>transport-rxtx</module>
-    <module>transport-sctp</module>
-    <module>transport-udt</module>
-    <module>handler</module>
-    <module>handler-proxy</module>
-    <module>handler-ssl-ocsp</module>
-    <module>example</module>
-    <module>testsuite</module>
-    <module>testsuite-autobahn</module>
-    <module>testsuite-http2</module>
-    <module>testsuite-osgi</module>
-    <module>testsuite-shading</module>
-    <module>testsuite-native</module>
-    <module>testsuite-native-image</module>
+    <module>netty-transport-rxtx</module>
+    <module>netty-transport-sctp</module>
+    <module>netty-transport-udt</module>
+    <module>netty-handler</module>
+    <module>netty-handler-proxy</module>
+    <module>netty-handler-ssl-ocsp</module>
+    <module>netty-example</module>
+    <module>netty-testsuite</module>
+    <module>netty-testsuite-autobahn</module>
+    <module>netty-testsuite-http2</module>
+    <module>netty-testsuite-osgi</module>
+    <module>netty-testsuite-shading</module>
+    <module>netty-testsuite-native</module>
+    <module>netty-testsuite-native-image</module>
     <module>testsuite-native-image-client</module>
     <module>testsuite-native-image-client-runtime-init</module>
     <module>transport-blockhound-tests</module>
-    <module>microbench</module>
+    <module>netty-microbench</module>
     <module>netty-bom</module>
   </modules>
 
