@@ -23,12 +23,17 @@ import io.netty.util.AttributeMap;
 import io.netty.util.concurrent.EventExecutor;
 
 /**
+ * ChannelHandlerContext，持有 ChannelHandler
+ * 连接 ChannelHandler 和 ChannelPipeline、以及其他的 handlers，
+ * 另外，处理程序可以通知 pipeline 中的下一个handler ,以及动态修改它所属的 Pipeline。
+ *
  * Enables a {@link ChannelHandler} to interact with its {@link ChannelPipeline}
  * and other handlers. Among other things a handler can notify the next {@link ChannelHandler} in the
  * {@link ChannelPipeline} as well as modify the {@link ChannelPipeline} it belongs to dynamically.
  *
  * <h3>Notify</h3>
  *
+ * 您可以通过调用此处提供的各种方法之一来通知同一 Pipeline 中最近的 handler
  * You can notify the closest handler in the same {@link ChannelPipeline} by calling one of the various methods
  * provided here.
  *
@@ -115,6 +120,11 @@ public interface ChannelHandlerContext extends AttributeMap, ChannelInboundInvok
      */
     boolean isRemoved();
 
+    /**
+     * 通道注册
+     *
+     * @return {@link ChannelHandlerContext }
+     */
     @Override
     ChannelHandlerContext fireChannelRegistered();
 

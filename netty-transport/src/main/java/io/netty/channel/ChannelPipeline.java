@@ -30,6 +30,10 @@ import java.util.NoSuchElementException;
 
 
 /**
+ * 处理或拦截 Channel 的入站事件和出站操作的 ChannelHandler 列表。
+ * ChannelPipeline 实现了 责任链模式，
+ * 使用户可以完全控制事件的处理方式，以及 事件处理 pipeline 中的 Handler的 相互交互
+ *
  * A list of {@link ChannelHandler}s which handles or intercepts inbound events and outbound operations of a
  * {@link Channel}.  {@link ChannelPipeline} implements an advanced form of the
  * <a href="https://www.oracle.com/technetwork/java/interceptingfilter-142169.html">Intercepting Filter</a> pattern
@@ -38,6 +42,7 @@ import java.util.NoSuchElementException;
  *
  * <h3>Creation of a pipeline</h3>
  *
+ * 每个channel 都有自己的 pipeline，并且在创建新channel 时自动创建
  * Each channel has its own pipeline and it is created automatically when a new channel is created.
  *
  * <h3>How an event flows in a pipeline</h3>
@@ -47,6 +52,10 @@ import java.util.NoSuchElementException;
  * and be forwarded to its closest handler by calling the event propagation methods defined in
  * {@link ChannelHandlerContext}, such as {@link ChannelHandlerContext#fireChannelRead(Object)} and
  * {@link ChannelHandlerContext#write(Object)}.
+ *
+ * IO 事件由 ChannelInboundHandler 或 ChannelOutboundHandler 处理，
+ * 并通过调用 ChannelHandlerContext 中定义的事件传播方法转发到其最近的处理程序，
+ * 例如 fireChannelRead(Object)  和 write(Object)
  *
  * <pre>
  *                                                 I/O Request

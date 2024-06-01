@@ -109,10 +109,24 @@ public class ChannelInboundHandlerAdapter extends ChannelHandlerAdapter implemen
     }
 
     /**
-     * Calls {@link ChannelHandlerContext#fireUserEventTriggered(Object)} to forward
-     * to the next {@link ChannelInboundHandler} in the {@link ChannelPipeline}.
-     *
+     * Calls
+     * {@link ChannelHandlerContext#fireUserEventTriggered(Object)}
+     * to forward
+     * <p>
+     * <p>
+     * to the next
+     * {@link ChannelInboundHandler}
+     * in the
+     * {@link ChannelPipeline}
+     * .
+     * <p>
+     * <p>
+     * <p>
      * Sub-classes may override this method to change behavior.
+     *
+     * @param ctx ctx
+     * @param evt 到
+     * @throws Exception 例外
      */
     @Skip
     @Override

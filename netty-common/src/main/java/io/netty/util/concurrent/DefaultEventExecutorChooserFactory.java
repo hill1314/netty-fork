@@ -34,6 +34,12 @@ public final class DefaultEventExecutorChooserFactory implements EventExecutorCh
 
     private DefaultEventExecutorChooserFactory() { }
 
+    /**
+     * 新建 选择器
+     *
+     * @param executors 遗嘱执行人
+     * @return {@link EventExecutorChooser }
+     */
     @Override
     public EventExecutorChooser newChooser(EventExecutor[] executors) {
         if (isPowerOfTwo(executors.length)) {
@@ -47,10 +53,16 @@ public final class DefaultEventExecutorChooserFactory implements EventExecutorCh
         return (val & -val) == val;
     }
 
+    /**
+     * 2的幂次 事件执行选择器
+     *
+     * @author huleilei9
+     * @date 2024/06/01
+     */
     private static final class PowerOfTwoEventExecutorChooser implements EventExecutorChooser {
         private final AtomicInteger idx = new AtomicInteger();
         /**
-         * 执行器
+         * 执行器列表
          */
         private final EventExecutor[] executors;
 
@@ -65,11 +77,20 @@ public final class DefaultEventExecutorChooserFactory implements EventExecutorCh
         }
     }
 
+    /**
+     * 通用（取模） 事件执行选择器
+     *
+     * @author huleilei9
+     * @date 2024/06/01
+     */
     private static final class GenericEventExecutorChooser implements EventExecutorChooser {
         // Use a 'long' counter to avoid non-round-robin behaviour at the 32-bit overflow boundary.
         // The 64-bit long solves this by placing the overflow so far into the future, that no system
         // will encounter this in practice.
         private final AtomicLong idx = new AtomicLong();
+        /**
+         * 执行器列表
+         */
         private final EventExecutor[] executors;
 
         GenericEventExecutorChooser(EventExecutor[] executors) {

@@ -42,6 +42,9 @@ public abstract class MultithreadEventExecutorGroup extends AbstractEventExecuto
     private final Set<EventExecutor> readonlyChildren;
     private final AtomicInteger terminatedChildren = new AtomicInteger();
     private final Promise<?> terminationFuture = new DefaultPromise(GlobalEventExecutor.INSTANCE);
+    /**
+     * 选择器
+     */
     private final EventExecutorChooserFactory.EventExecutorChooser chooser;
 
     /**
@@ -114,8 +117,10 @@ public abstract class MultithreadEventExecutorGroup extends AbstractEventExecuto
             }
         }
 
+        //创建一个 EventExecutor 选择器
         chooser = chooserFactory.newChooser(children);
 
+        //终止监听器
         final FutureListener<Object> terminationListener = new FutureListener<Object>() {
             @Override
             public void operationComplete(Future<Object> future) throws Exception {
@@ -125,6 +130,7 @@ public abstract class MultithreadEventExecutorGroup extends AbstractEventExecuto
             }
         };
 
+        //子线程组 订阅 终止监听器
         for (EventExecutor e: children) {
             e.terminationFuture().addListener(terminationListener);
         }
@@ -138,6 +144,11 @@ public abstract class MultithreadEventExecutorGroup extends AbstractEventExecuto
         return new DefaultThreadFactory(getClass());
     }
 
+    /**
+     * 从组里面按照一定规则获取其中一个 EventLoop 来处理任务
+     *
+     * @return {@link EventExecutor }
+     */
     @Override
     public EventExecutor next() {
         return chooser.next();

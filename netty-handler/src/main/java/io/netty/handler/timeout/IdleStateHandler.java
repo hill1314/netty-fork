@@ -31,7 +31,8 @@ import io.netty.util.internal.ObjectUtil;
 import java.util.concurrent.TimeUnit;
 
 /**
- * 心跳检查
+ * netty 提供的处理空闲状态的处理器
+ *
  * Triggers an {@link IdleStateEvent} when a {@link Channel} has not performed
  * read, write, or both operation for a while.
  *
@@ -112,18 +113,22 @@ public class IdleStateHandler extends ChannelDuplexHandler {
     private final boolean observeOutput;
     /**
      * 读取器空闲时间（纳秒）
+     * 表示多长时间没有读, 就会发送一个心跳检测包检测是否连接
      */
     private final long readerIdleTimeNanos;
     /**
      * 写空闲时间（纳秒）
+     * 表示多长时间没有写, 就会发送一个心跳检测包检测是否连接
      */
     private final long writerIdleTimeNanos;
     /**
-     * 所有空闲时间（纳秒）
+     * 读写空闲时间（纳秒）
+     * 表示多长时间没有读写, 就会发送一个心跳检测包检测是否连接
      */
     private final long allIdleTimeNanos;
 
     private Future<?> readerIdleTimeout;
+
     private long lastReadTime;
     private boolean firstReaderIdleEvent = true;
 
@@ -166,16 +171,18 @@ public class IdleStateHandler extends ChannelDuplexHandler {
             int writerIdleTimeSeconds,
             int allIdleTimeSeconds) {
 
-        this(readerIdleTimeSeconds, writerIdleTimeSeconds, allIdleTimeSeconds,
-             TimeUnit.SECONDS);
+        this(readerIdleTimeSeconds, writerIdleTimeSeconds, allIdleTimeSeconds, TimeUnit.SECONDS);
     }
 
     /**
-     * @see #IdleStateHandler(boolean, long, long, long, TimeUnit)
+     * 空闲状态处理程序
+     *
+     * @param readerIdleTime 读空闲时间
+     * @param writerIdleTime 写入空闲时间
+     * @param allIdleTime    读写空闲时间
+     * @param unit           时间单位
      */
-    public IdleStateHandler(
-            long readerIdleTime, long writerIdleTime, long allIdleTime,
-            TimeUnit unit) {
+    public IdleStateHandler(long readerIdleTime, long writerIdleTime, long allIdleTime, TimeUnit unit) {
         this(false, readerIdleTime, writerIdleTime, allIdleTime, unit);
     }
 
