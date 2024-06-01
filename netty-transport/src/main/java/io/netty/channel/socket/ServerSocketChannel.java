@@ -20,13 +20,32 @@ import io.netty.channel.ServerChannel;
 import java.net.InetSocketAddress;
 
 /**
- * A TCP/IP {@link ServerChannel} which accepts incoming TCP/IP connections.
+ * A TCP/IP
+ * {@link ServerChannel}
+ * which accepts incoming TCP/IP connections.
  */
 public interface ServerSocketChannel extends ServerChannel {
+    /**
+     * 配置
+     *
+     * @return {@link ServerSocketChannelConfig }
+     */
     @Override
     ServerSocketChannelConfig config();
+
+    /**
+     * 本地地址
+     *
+     * @return {@link InetSocketAddress }
+     */
     @Override
     InetSocketAddress localAddress();
+
+    /**
+     * 远程地址
+     *
+     * @return {@link InetSocketAddress }
+     */
     @Override
     InetSocketAddress remoteAddress();
 }

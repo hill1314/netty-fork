@@ -60,7 +60,13 @@ public class DefaultChannelPipeline implements ChannelPipeline {
     private static final AtomicReferenceFieldUpdater<DefaultChannelPipeline, MessageSizeEstimator.Handle> ESTIMATOR =
             AtomicReferenceFieldUpdater.newUpdater(
                     DefaultChannelPipeline.class, MessageSizeEstimator.Handle.class, "estimatorHandle");
+    /**
+     * 头
+     */
     final HeadContext head;
+    /**
+     * 尾
+     */
     final TailContext tail;
 
     private final Channel channel;
@@ -68,8 +74,13 @@ public class DefaultChannelPipeline implements ChannelPipeline {
     private final VoidChannelPromise voidPromise;
     private final boolean touch = ResourceLeakDetector.isEnabled();
 
+    /**
+     * 子执行器
+     */
     private Map<EventExecutorGroup, EventExecutor> childExecutors;
+
     private volatile MessageSizeEstimator.Handle estimatorHandle;
+
     private boolean firstRegistration = true;
 
     /**

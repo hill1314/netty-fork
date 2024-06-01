@@ -19,7 +19,14 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
- * Default implementation which uses simple round-robin to choose next {@link EventExecutor}.
+ *  使用简单轮循法来选择下一个 的 默认实现
+ *
+ * Default implementation which uses simple round-robin to choose next
+ * {@link EventExecutor}
+ * .
+ *
+ * @author huleilei9
+ * @date 2024/05/31
  */
 public final class DefaultEventExecutorChooserFactory implements EventExecutorChooserFactory {
 
@@ -42,6 +49,9 @@ public final class DefaultEventExecutorChooserFactory implements EventExecutorCh
 
     private static final class PowerOfTwoEventExecutorChooser implements EventExecutorChooser {
         private final AtomicInteger idx = new AtomicInteger();
+        /**
+         * 执行器
+         */
         private final EventExecutor[] executors;
 
         PowerOfTwoEventExecutorChooser(EventExecutor[] executors) {
@@ -50,6 +60,7 @@ public final class DefaultEventExecutorChooserFactory implements EventExecutorCh
 
         @Override
         public EventExecutor next() {
+            //idx.getAndIncrement()相当于idx++，然后对任务长度取模
             return executors[idx.getAndIncrement() & executors.length - 1];
         }
     }
@@ -67,6 +78,7 @@ public final class DefaultEventExecutorChooserFactory implements EventExecutorCh
 
         @Override
         public EventExecutor next() {
+            //如果线程数不是2的N次方，则采用取模算法实现
             return executors[(int) Math.abs(idx.getAndIncrement() % executors.length)];
         }
     }

@@ -20,23 +20,27 @@ import io.netty.util.internal.ObjectUtil;
 import io.netty.util.internal.StringUtil;
 
 /**
+ * 空闲状态事件
  * A user event triggered by {@link IdleStateHandler} when a {@link Channel} is idle.
  */
 public class IdleStateEvent {
-    public static final IdleStateEvent FIRST_READER_IDLE_STATE_EVENT =
-            new DefaultIdleStateEvent(IdleState.READER_IDLE, true);
-    public static final IdleStateEvent READER_IDLE_STATE_EVENT =
-            new DefaultIdleStateEvent(IdleState.READER_IDLE, false);
-    public static final IdleStateEvent FIRST_WRITER_IDLE_STATE_EVENT =
-            new DefaultIdleStateEvent(IdleState.WRITER_IDLE, true);
-    public static final IdleStateEvent WRITER_IDLE_STATE_EVENT =
-            new DefaultIdleStateEvent(IdleState.WRITER_IDLE, false);
-    public static final IdleStateEvent FIRST_ALL_IDLE_STATE_EVENT =
-            new DefaultIdleStateEvent(IdleState.ALL_IDLE, true);
-    public static final IdleStateEvent ALL_IDLE_STATE_EVENT =
-            new DefaultIdleStateEvent(IdleState.ALL_IDLE, false);
+    /**
+     * 第一个读取器空闲状态事件
+     */
+    public static final IdleStateEvent FIRST_READER_IDLE_STATE_EVENT = new DefaultIdleStateEvent(IdleState.READER_IDLE, true);
+    public static final IdleStateEvent READER_IDLE_STATE_EVENT = new DefaultIdleStateEvent(IdleState.READER_IDLE, false);
+    public static final IdleStateEvent FIRST_WRITER_IDLE_STATE_EVENT = new DefaultIdleStateEvent(IdleState.WRITER_IDLE, true);
+    public static final IdleStateEvent WRITER_IDLE_STATE_EVENT = new DefaultIdleStateEvent(IdleState.WRITER_IDLE, false);
+    public static final IdleStateEvent FIRST_ALL_IDLE_STATE_EVENT = new DefaultIdleStateEvent(IdleState.ALL_IDLE, true);
+    public static final IdleStateEvent ALL_IDLE_STATE_EVENT = new DefaultIdleStateEvent(IdleState.ALL_IDLE, false);
 
+    /**
+     * 状态
+     */
     private final IdleState state;
+    /**
+     *
+     */
     private final boolean first;
 
     /**
@@ -69,9 +73,21 @@ public class IdleStateEvent {
         return StringUtil.simpleClassName(this) + '(' + state + (first ? ", first" : "") + ')';
     }
 
+    /**
+     * 默认空闲状态事件
+     *
+     * @author huleilei9
+     * @date 2024/05/31
+     */
     private static final class DefaultIdleStateEvent extends IdleStateEvent {
         private final String representation;
 
+        /**
+         * 默认空闲状态事件
+         *
+         * @param state 状态
+         * @param first 第一
+         */
         DefaultIdleStateEvent(IdleState state, boolean first) {
             super(state, first);
             this.representation = "IdleStateEvent(" + state + (first ? ", first" : "") + ')';

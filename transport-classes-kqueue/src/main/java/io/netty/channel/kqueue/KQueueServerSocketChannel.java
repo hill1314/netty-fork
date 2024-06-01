@@ -25,6 +25,12 @@ import java.net.SocketAddress;
 import static io.netty.channel.kqueue.BsdSocket.newSocketStream;
 import static io.netty.channel.unix.NativeInetAddress.address;
 
+/**
+ * 队列 服务器套接字通道
+ *
+ * @author huleilei9
+ * @date 2024/05/31
+ */
 public final class KQueueServerSocketChannel extends AbstractKQueueServerChannel implements ServerSocketChannel {
     private final KQueueServerSocketChannelConfig config;
 

@@ -31,6 +31,7 @@ import io.netty.util.internal.ObjectUtil;
 import java.util.concurrent.TimeUnit;
 
 /**
+ * 心跳检查
  * Triggers an {@link IdleStateEvent} when a {@link Channel} has not performed
  * read, write, or both operation for a while.
  *
@@ -109,8 +110,17 @@ public class IdleStateHandler extends ChannelDuplexHandler {
     };
 
     private final boolean observeOutput;
+    /**
+     * 读取器空闲时间（纳秒）
+     */
     private final long readerIdleTimeNanos;
+    /**
+     * 写空闲时间（纳秒）
+     */
     private final long writerIdleTimeNanos;
+    /**
+     * 所有空闲时间（纳秒）
+     */
     private final long allIdleTimeNanos;
 
     private Future<?> readerIdleTimeout;
@@ -327,6 +337,11 @@ public class IdleStateHandler extends ChannelDuplexHandler {
         }
     }
 
+    /**
+     * 初始化
+     *
+     * @param ctx ctx
+     */
     private void initialize(ChannelHandlerContext ctx) {
         // Avoid the case where destroy() is called before scheduling timeouts.
         // See: https://github.com/netty/netty/issues/143
@@ -341,18 +356,16 @@ public class IdleStateHandler extends ChannelDuplexHandler {
         state = ST_INITIALIZED;
         initOutputChanged(ctx);
 
+        //最后读时间 = 最后写时间 = 当前时间
         lastReadTime = lastWriteTime = ticksInNanos();
         if (readerIdleTimeNanos > 0) {
-            readerIdleTimeout = schedule(ctx, new ReaderIdleTimeoutTask(ctx),
-                    readerIdleTimeNanos, TimeUnit.NANOSECONDS);
+            readerIdleTimeout = schedule(ctx, new ReaderIdleTimeoutTask(ctx), readerIdleTimeNanos, TimeUnit.NANOSECONDS);
         }
         if (writerIdleTimeNanos > 0) {
-            writerIdleTimeout = schedule(ctx, new WriterIdleTimeoutTask(ctx),
-                    writerIdleTimeNanos, TimeUnit.NANOSECONDS);
+            writerIdleTimeout = schedule(ctx, new WriterIdleTimeoutTask(ctx), writerIdleTimeNanos, TimeUnit.NANOSECONDS);
         }
         if (allIdleTimeNanos > 0) {
-            allIdleTimeout = schedule(ctx, new AllIdleTimeoutTask(ctx),
-                    allIdleTimeNanos, TimeUnit.NANOSECONDS);
+            allIdleTimeout = schedule(ctx, new AllIdleTimeoutTask(ctx), allIdleTimeNanos, TimeUnit.NANOSECONDS);
         }
     }
 
@@ -388,6 +401,7 @@ public class IdleStateHandler extends ChannelDuplexHandler {
     }
 
     /**
+     * 通道空闲
      * Is called when an {@link IdleStateEvent} should be fired. This implementation calls
      * {@link ChannelHandlerContext#fireUserEventTriggered(Object)}.
      */
@@ -396,7 +410,12 @@ public class IdleStateHandler extends ChannelDuplexHandler {
     }
 
     /**
-     * Returns a {@link IdleStateEvent}.
+     * 新建状态时间
+     * {@link IdleStateEvent}
+     *
+     * @param state 状态
+     * @param first 第一次
+     * @return {@link IdleStateEvent }
      */
     protected IdleStateEvent newIdleStateEvent(IdleState state, boolean first) {
         switch (state) {
@@ -500,6 +519,12 @@ public class IdleStateHandler extends ChannelDuplexHandler {
         protected abstract void run(ChannelHandlerContext ctx);
     }
 
+    /**
+     * 读取器空闲超时任务
+     *
+     * @author huleilei9
+     * @date 2024/06/01
+     */
     private final class ReaderIdleTimeoutTask extends AbstractIdleTask {
 
         ReaderIdleTimeoutTask(ChannelHandlerContext ctx) {
@@ -533,6 +558,12 @@ public class IdleStateHandler extends ChannelDuplexHandler {
         }
     }
 
+    /**
+     * 写程序空闲超时任务
+     *
+     * @author huleilei9
+     * @date 2024/06/01
+     */
     private final class WriterIdleTimeoutTask extends AbstractIdleTask {
 
         WriterIdleTimeoutTask(ChannelHandlerContext ctx) {
@@ -568,6 +599,12 @@ public class IdleStateHandler extends ChannelDuplexHandler {
         }
     }
 
+    /**
+     * 所有空闲超时任务
+     *
+     * @author huleilei9
+     * @date 2024/06/01
+     */
     private final class AllIdleTimeoutTask extends AbstractIdleTask {
 
         AllIdleTimeoutTask(ChannelHandlerContext ctx) {

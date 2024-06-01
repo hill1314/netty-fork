@@ -18,6 +18,9 @@ package io.netty.channel;
 import io.netty.channel.ChannelHandlerMask.Skip;
 
 /**
+ * 入站处理器
+ * 入站指的是数据从底层 java NIO Channel 到 Netty的Channel
+ *
  * Abstract base class for {@link ChannelInboundHandler} implementations which provide
  * implementations of all of their methods.
  *

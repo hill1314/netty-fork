@@ -100,16 +100,19 @@ public interface Channel extends AttributeMap, ChannelOutboundInvoker, Comparabl
     ChannelConfig config();
 
     /**
+     * 是否打开状态
      * Returns {@code true} if the {@link Channel} is open and may get active later
      */
     boolean isOpen();
 
     /**
+     * 通道已注册到EventLoop
      * Returns {@code true} if the {@link Channel} is registered with an {@link EventLoop}.
      */
     boolean isRegistered();
 
     /**
+     * 通道处于活动状态并且已连接
      * Return {@code true} if the {@link Channel} is active and so connected.
      */
     boolean isActive();
@@ -153,6 +156,8 @@ public interface Channel extends AttributeMap, ChannelOutboundInvoker, Comparabl
     ChannelFuture closeFuture();
 
     /**
+     * 当且仅当I/O线程将立即执行请求的写入操作时返回true
+     *
      * Returns {@code true} if and only if the I/O thread will perform the
      * requested write operation immediately.  Any write requests made when
      * this method returns {@code false} are queued until the I/O thread is

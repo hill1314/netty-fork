@@ -363,6 +363,12 @@ abstract class AbstractChannelHandlerContext implements ChannelHandlerContext, R
         }
     }
 
+    /**
+     * 触发了fire用户事件
+     *
+     * @param event 事件
+     * @return {@link ChannelHandlerContext }
+     */
     @Override
     public ChannelHandlerContext fireUserEventTriggered(final Object event) {
         invokeUserEventTriggered(findContextInbound(MASK_USER_EVENT_TRIGGERED), event);
@@ -384,6 +390,11 @@ abstract class AbstractChannelHandlerContext implements ChannelHandlerContext, R
         }
     }
 
+    /**
+     * 触发调用用户事件
+     *
+     * @param event 事件
+     */
     private void invokeUserEventTriggered(Object event) {
         if (invokeHandler()) {
             try {

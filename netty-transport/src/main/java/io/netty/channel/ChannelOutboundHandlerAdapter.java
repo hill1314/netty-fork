@@ -20,6 +20,9 @@ import io.netty.channel.ChannelHandlerMask.Skip;
 import java.net.SocketAddress;
 
 /**
+ * 出站处理器
+ * 出站指的是通过Netty的Channel来操作底层的java NIO Channel
+ *
  * Skeleton implementation of a {@link ChannelOutboundHandler}. This implementation just forwards each method call via
  * the {@link ChannelHandlerContext}.
  */

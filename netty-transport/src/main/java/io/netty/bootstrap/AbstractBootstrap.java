@@ -60,13 +60,22 @@ public abstract class AbstractBootstrap<B extends AbstractBootstrap<B, C>, C ext
     volatile EventLoopGroup group;
     @SuppressWarnings("deprecation")
     private volatile ChannelFactory<? extends C> channelFactory;
+
     private volatile SocketAddress localAddress;
 
-    // The order in which ChannelOptions are applied is important they may depend on each other for validation
-    // purposes.
+    /**
+     * 选项
+     * ChannelOptions 的应用顺序很重要，出于验证目的，它们可能相互依赖
+     */
+    // The order in which ChannelOptions are applied is important they may depend on each other for validation purposes.
     private final Map<ChannelOption<?>, Object> options = new LinkedHashMap<ChannelOption<?>, Object>();
+    /**
+     * 属性
+     */
     private final Map<AttributeKey<?>, Object> attrs = new ConcurrentHashMap<AttributeKey<?>, Object>();
+
     private volatile ChannelHandler handler;
+
     private volatile ClassLoader extensionsClassLoader;
 
     AbstractBootstrap() {

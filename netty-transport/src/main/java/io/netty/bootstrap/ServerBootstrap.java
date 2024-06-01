@@ -47,12 +47,23 @@ public class ServerBootstrap extends AbstractBootstrap<ServerBootstrap, ServerCh
 
     private static final InternalLogger logger = InternalLoggerFactory.getInstance(ServerBootstrap.class);
 
-    // The order in which child ChannelOptions are applied is important they may depend on each other for validation
-    // purposes.
+    /**
+     * 子选项
+     * 应用子 ChannelOptions 的顺序很重要，它们可能相互依赖以进行验证
+     */
+    // The order in which child ChannelOptions are applied is important they may depend on each other for validation purposes.
     private final Map<ChannelOption<?>, Object> childOptions = new LinkedHashMap<ChannelOption<?>, Object>();
+    /**
+     * 子属性
+     */
     private final Map<AttributeKey<?>, Object> childAttrs = new ConcurrentHashMap<AttributeKey<?>, Object>();
+    /**
+     * 配置
+     */
     private final ServerBootstrapConfig config = new ServerBootstrapConfig(this);
+
     private volatile EventLoopGroup childGroup;
+
     private volatile ChannelHandler childHandler;
 
     public ServerBootstrap() { }
